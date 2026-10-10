@@ -1,0 +1,15 @@
+{
+  "name": "plain-english",
+  "version": "0.1.0",
+  "description": "Rewrites Claude's answers in plain language, moves the detail into a summary, and adds next steps.",
+  "author": { "name": "Taha-Aalam" },
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "seed": {
+      "type": "boolean",
+      "title": "Test seed",
+      "default": false,
+      "description": "Internal: lets a test store a rewrite for the render hook."
+    }
+  }
+}

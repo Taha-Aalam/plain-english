@@ -1,0 +1,13 @@
+{
+  "name": "plain-english",
+  "description": "Rewrites Claude's answers in plain language, moves the detail into a summary, and adds next steps.",
+  "owner": {
+    "name": "Taha-Aalam"
+  },
+  "plugins": [
+    {
+      "name": "plain-english",
+      "source": "./"
+    }
+  ]
+}
