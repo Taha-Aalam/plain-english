@@ -99,19 +99,34 @@ export const register: Register = (on, options) => {
     if (!matchesBlock(answer, props.text)) return next(e)
 
     const { Box, Markdown, Text } = $.ui.resolve(e)
+    // A rewrite is our drawing, not the engine's: without this it comes out in
+    // Claude Code's own styling while the reply it replaces was drawn in the
+    // person's skin — the row visibly changes look a few seconds after the
+    // answer lands. `$.skins.markdown` is skins' own drawing of markdown. The
+    // noun is read only as a call, never on its own: with skins not installed
+    // the call itself throws, and the engine's Markdown is the floor.
+    const inSkin = async (text: string) => {
+      try {
+        const drawn = await $.skins.markdown({ surface: e.surface, text, columns: e.viewport?.columns ?? 100 })
+        return drawn ?? <Markdown text={text} />
+      } catch {
+        return <Markdown text={text} />
+      }
+    }
+
     return (
       <Box flexDirection="column">
-        <Markdown text={answer.plain} />
+        {await inSkin(answer.plain)}
         {answer.summary === '' ? null : (
           <Box flexDirection="column">
             <Text bold>Summary</Text>
-            <Markdown text={answer.summary} />
+            {await inSkin(answer.summary)}
           </Box>
         )}
         {answer.nextSteps.length === 0 ? null : (
           <Box flexDirection="column">
             <Text bold>Next steps</Text>
-            <Markdown text={answer.nextSteps.map(s => `- ${s}`).join(NL)} />
+            {await inSkin(answer.nextSteps.map(s => `- ${s}`).join(NL))}
           </Box>
         )}
       </Box>
