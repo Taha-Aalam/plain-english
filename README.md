@@ -35,6 +35,7 @@ Anything the mod keeps between events lives in `$.state`, and every key it uses 
 
 - The rewrite is **display only**. The model still receives exactly what it said, so the session's own memory stays consistent.
 - Answers under 400 characters are left alone — rewriting `Done.` is not worth a model call.
+- The rewrite is drawn in the skins plugin's styling when skins is installed and on (`$.skins.markdown`); otherwise Claude Code's own Markdown draws it, so the reply keeps one look either way.
 - The model-backed paths (the rewrite and `/plain-check`) cannot be exercised by the test suite, because `$.model` is absent from the test interface. Run `/plain-check` in a real session to confirm it works.
 - Each rewrite costs one Haiku call, made after the turn has already been answered — you see the plain version a moment after the original.
 - A hidden `/plain-seed` command exists only when the `seed` option is on. It is off by default and exists so the tests can fill the state without a model call.

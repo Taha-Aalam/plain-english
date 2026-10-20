@@ -1,6 +1,6 @@
 {
   "name": "plain-english",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rewrites Claude's answers in plain language, moves the detail into a summary, and adds next steps.",
   "author": { "name": "Taha-Aalam" },
   "types": "./types/index.d.ts",
